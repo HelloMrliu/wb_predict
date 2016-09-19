@@ -24,7 +24,9 @@ def get_classify_dict(data_dict, test_dict, length, low_gap, high_gap, min_gap, 
         test_list = test_dict[test_weibo_id]
 
         same_weibo_id_set = select_data.get_same_set_according_average_val(data_dict, test_list, min_gap, min_num)
-        predict_list = predict_data_cal.cal_predict_list(data_dict, same_weibo_id_set)
+
+        #predict_list = predict_data_cal.cal_predict_list(data_dict, same_weibo_id_set)
+        predict_list = predict_data_cal.cal_predict_list_by_middle(data_dict, same_weibo_id_set)
 
         same_weibo_id_set.add(test_weibo_id)
 
@@ -62,3 +64,4 @@ if __name__ == "__main__":
     write_file_opt.save_id_classify(weibo_classify_save_file_path, weibo_id_classify)
 
 
+# original 0.88

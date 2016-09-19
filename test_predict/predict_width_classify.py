@@ -30,7 +30,9 @@ def get_classify_dict(data_dict, test_dict, length, low_gap, high_gap, min_gap, 
 
         if len(same_weibo_id_set) == 0:
             same_weibo_id_set = old_same_weibo_id_set
-        predict_list = predict_data_cal.cal_predict_list(data_dict, same_weibo_id_set)
+
+        # predict_list = predict_data_cal.cal_predict_list(data_dict, same_weibo_id_set)
+        predict_list = predict_data_cal.cal_predict_list_by_middle(data_dict, same_weibo_id_set)
 
         temp_error = error_calculate.error_cal(test_list, predict_list)
         error += temp_error
@@ -60,5 +62,8 @@ if __name__ == "__main__":
     classify_number = 5
 
     get_classify_dict(width_depth_dict, test_dict, length, low_gap, high_gap, min_gap, min_num, classify_number)
+
+    # 25->  1068/1325  0.23035 平均数
+
 
 
