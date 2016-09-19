@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3c55919-ec37-4d95-8946-0ba95bde106f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_tools/predict_data_cal.py" afterPath="$PROJECT_DIR$/common_tools/predict_data_cal.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_predict/make_depth_classify.py" afterPath="$PROJECT_DIR$/test_predict/make_depth_classify.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_predict/make_width_classify.py" afterPath="$PROJECT_DIR$/test_predict/make_width_classify.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_predict/predict_depth_classify.py" afterPath="$PROJECT_DIR$/test_predict/predict_depth_classify.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_predict/predict_width_classify.py" afterPath="$PROJECT_DIR$/test_predict/predict_width_classify.py" />
     </list>
     <ignored path="weibo_predict.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,11 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="make_depth_classify.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="make_depth_classify.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test_predict/make_depth_classify.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="311">
-              <caret line="68" column="18" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
+              <caret line="68" column="6" selection-start-line="68" selection-start-column="6" selection-end-line="68" selection-end-column="6" />
               <folding>
                 <element signature="e#15#54#0" expanded="true" />
               </folding>
@@ -64,11 +60,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="predict_depth_classify.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="predict_depth_classify.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test_predict/predict_depth_classify.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="59" column="15" selection-start-line="59" selection-start-column="15" selection-end-line="59" selection-end-column="15" />
+            <state relative-caret-position="311">
+              <caret line="69" column="18" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
               <folding>
                 <element signature="e#15#54#0" expanded="true" />
               </folding>
@@ -101,8 +97,8 @@
         <option value="$PROJECT_DIR$/common_tools/predict_data_cal.py" />
         <option value="$PROJECT_DIR$/test_predict/make_width_classify.py" />
         <option value="$PROJECT_DIR$/test_predict/predict_width_classify.py" />
-        <option value="$PROJECT_DIR$/test_predict/make_depth_classify.py" />
         <option value="$PROJECT_DIR$/test_predict/predict_depth_classify.py" />
+        <option value="$PROJECT_DIR$/test_predict/make_depth_classify.py" />
       </list>
     </option>
   </component>
@@ -644,20 +640,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_predict/make_depth_classify.py">
+    <entry file="file://$PROJECT_DIR$/test_predict/predict_depth_classify.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="311">
-          <caret line="68" column="18" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
+          <caret line="69" column="18" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
           <folding>
             <element signature="e#15#54#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_predict/predict_depth_classify.py">
+    <entry file="file://$PROJECT_DIR$/test_predict/make_depth_classify.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="59" column="15" selection-start-line="59" selection-start-column="15" selection-end-line="59" selection-end-column="15" />
+        <state relative-caret-position="311">
+          <caret line="68" column="6" selection-start-line="68" selection-start-column="6" selection-end-line="68" selection-end-column="6" />
           <folding>
             <element signature="e#15#54#0" expanded="true" />
           </folding>
