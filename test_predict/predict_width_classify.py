@@ -35,7 +35,11 @@ def get_classify_dict(data_dict, test_dict, length, low_gap, high_gap, min_gap, 
         predict_list = predict_data_cal.cal_predict_list_by_middle(data_dict, same_weibo_id_set)
 
         temp_error = error_calculate.error_cal(test_list, predict_list)
-        error += temp_error
+        if temp_error > 1.0:
+            print str(test_weibo_id) + '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+            error += 1
+        else:
+            error += temp_error
 
         print str(test_weibo_id) + " : " + str(temp_error)
 
@@ -54,9 +58,9 @@ if __name__ == "__main__":
     width_depth_dict, test_dict = delete_badcase.del_bad_test_case(width_depth_dict, test_case_set)
     width_depth_dict, bad_dict = delete_badcase.del_bad_test_case(width_depth_dict, bad_case_set)
 
-    length = 100
-    low_gap = 25
-    high_gap = 20000
+    length = 300
+    low_gap = 0
+    high_gap = 24
     min_gap = 3
     min_num = 10
     classify_number = 5
