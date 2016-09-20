@@ -54,14 +54,15 @@ if __name__ == "__main__":
 
     length = 1500
     low_gap = 0
-    high_gap = 20000
+    high_gap = 24
     min_gap = 3
     min_num = 10
     classify_number = 5
 
     get_classify_dict(width_depth_dict, test_dict, length, low_gap, high_gap, min_gap, min_num, classify_number)
 
+
     write_file_opt.save_id_classify(weibo_classify_save_file_path, weibo_id_classify)
 
 
-# original 0.88
+#  original 0.88

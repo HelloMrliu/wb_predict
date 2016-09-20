@@ -8,11 +8,10 @@ weibo_width_dir = os.path.join(os.pardir, os.pardir, 'wb_data', 'middle_data', '
 weibo_testcase_width_dir = os.path.join(os.pardir, os.pardir, 'wb_data', 'badcase_testcase_data', 'weibo_testcase_width.txt')
 weibo_badcase_width_dir = os.path.join(os.pardir, os.pardir, 'wb_data', 'badcase_testcase_data', 'weibo_badcase_width.txt')
 weibo_classify_file_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'classify_data', 'weibo_width_classify_data.txt')
-
 weibo_id_classify = dict()
 
 
-def get_classify_dict(data_dict, test_dict, length, low_gap, high_gap, min_gap, min_num, classify_number):
+def get_classify_dict(data_dict, test_dict, length, low_gap, high_gap, min_gap, min_num, classify_number, is_small):
     count = 0
     error = 0
 
@@ -26,22 +25,25 @@ def get_classify_dict(data_dict, test_dict, length, low_gap, high_gap, min_gap, 
 
         same_weibo_id_set = select_data.get_same_set_according_average_val(data_dict, test_list, min_gap, min_num)
         old_same_weibo_id_set = same_weibo_id_set
+
         same_weibo_id_set = generate_classify.select_same_classify(test_weibo_id, same_weibo_id_set, weibo_classify_file_path)
 
         if len(same_weibo_id_set) == 0:
             same_weibo_id_set = old_same_weibo_id_set
 
-        # predict_list = predict_data_cal.cal_predict_list(data_dict, same_weibo_id_set)
-        predict_list = predict_data_cal.cal_predict_list_by_middle(data_dict, same_weibo_id_set)
+        if is_small == 1:
+            max_gap, predict_list = predict_data_cal.judge_cal_predict_by_condition_small_val(data_dict, same_weibo_id_set)
+        else:
+            max_gap, predict_list = predict_data_cal.judge_cal_predict_by_condition_big_val(data_dict, same_weibo_id_set)
 
         temp_error = error_calculate.error_cal(test_list, predict_list)
         if temp_error > 1.0:
             print str(test_weibo_id) + '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-            error += 1
+            error += temp_error
         else:
             error += temp_error
 
-        print str(test_weibo_id) + " : " + str(temp_error)
+        print str(test_weibo_id) + " : " + str(temp_error) + ' len: ' + str(len(same_weibo_id_set)) + ' gap: ' + str(max_gap) + ' divide: ' +  str(max_gap / len(same_weibo_id_set))
 
         if count > length:
             break
@@ -58,16 +60,18 @@ if __name__ == "__main__":
     width_depth_dict, test_dict = delete_badcase.del_bad_test_case(width_depth_dict, test_case_set)
     width_depth_dict, bad_dict = delete_badcase.del_bad_test_case(width_depth_dict, bad_case_set)
 
-    length = 300
+    length = 1200
     low_gap = 0
     high_gap = 24
     min_gap = 3
     min_num = 10
     classify_number = 5
+    is_small = 1
 
-    get_classify_dict(width_depth_dict, test_dict, length, low_gap, high_gap, min_gap, min_num, classify_number)
+    get_classify_dict(width_depth_dict, test_dict, length, low_gap, high_gap, min_gap, min_num, classify_number, is_small)
 
     # 25->  1068/1325  0.23035 平均数
+    # 0.750466678034
 
 
 
