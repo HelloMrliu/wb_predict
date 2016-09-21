@@ -4,13 +4,13 @@ import codecs
 import os
 
 
-weibo_train_feature_dir = os.path.join(os.pardir, 'train_feature_dir')
-weibo_profile_path = os.path.join(os.pardir, 'source_data', 'WeiboProfile_train.txt')
-width_file_path = os.path.join(os.pardir, 'middle_data', 'weibo_time_width_with_label.txt')
-depth_file_path = os.path.join(os.pardir, 'middle_data', 'weibo_time_depth_with_label.txt')
+weibo_train_feature_dir = os.path.join(os.pardir, os.pardir, 'wb_data', 'feature_data')
+weibo_profile_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'source_data', 'WeiboProfile_train.txt')
+width_file_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'classify_data', 'weibo_width_classify_data.txt')
+depth_file_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'classify_data', 'weibo_depth_classify_data.txt')
 weibo_feature_dir = weibo_train_feature_dir
 
-feature_save_path = os.path.join(os.pardir, 'train_feature_dir', 'all_feature.txt')
+feature_save_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'train_data', 'train.csv')
 
 
 file_list = os.listdir(weibo_feature_dir)
@@ -48,7 +48,7 @@ for file_name in file_list:
         else:
             null_list = ['0'] * length
             id_feature_dict[weibo_id].extend(null_list)
-
+'''
 with codecs.open(width_file_path, 'r', 'utf-8') as width_file:
         for feature_data in width_file:
             id_feature = feature_data.strip('\n').split('\t')
@@ -56,6 +56,7 @@ with codecs.open(width_file_path, 'r', 'utf-8') as width_file:
             label = id_feature[-1]
             id_feature_dict[weibo_id].append(label)
 
+'''
 with codecs.open(depth_file_path, 'r', 'utf-8') as depth_file:
         for feature_data in depth_file:
             id_feature = feature_data.strip('\n').split('\t')
@@ -63,8 +64,12 @@ with codecs.open(depth_file_path, 'r', 'utf-8') as depth_file:
             label = id_feature[-1]
             id_feature_dict[weibo_id].append(label)
 
+
 with codecs.open(feature_save_path, 'w', 'utf-8') as save_file:
     for weibo_id in id_feature_dict:
-        save_file.write(str(weibo_id) + ',' + ','.join(id_feature_dict[weibo_id]))
-        save_file.write('\n')
+        if len(id_feature_dict[weibo_id]) == 8:
+            save_file.write(str(weibo_id) + ',' + ','.join(id_feature_dict[weibo_id]))
+            save_file.write('\n')
+        else:
+            pass
 
