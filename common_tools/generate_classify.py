@@ -1,6 +1,7 @@
 # coding=utf-8
 from __future__ import unicode_literals
 import codecs
+from file_operator import read_file_opt
 
 
 def make_classify(standard_list, predict_list, same_weibo_id_set, data_dict, weibo_id_classify, classify_number):
@@ -46,6 +47,11 @@ def make_classify(standard_list, predict_list, same_weibo_id_set, data_dict, wei
             weibo_id_classify[same_id].append(classify)
 
 
+def get_classify(predict_classify_file_path):
+    weibo_classify_dict = read_file_opt.read_classify(predict_classify_file_path)
+    return weibo_classify_dict
+
+
 def select_same_classify(std_weibo_id, same_weibo_id_set, weibo_classify_file_path):
     weibo_classify_dict = dict()
     with codecs.open(weibo_classify_file_path, 'r', 'utf-8') as classify_file:
@@ -60,6 +66,23 @@ def select_same_classify(std_weibo_id, same_weibo_id_set, weibo_classify_file_pa
     else:
         print 'std_id not in same_set'
         return same_weibo_id_set
+
+    new_result_set = set()
+    for weibo_id in same_weibo_id_set:
+        if weibo_classify_dict[weibo_id] == std_classify:
+            new_result_set.add(weibo_id)
+
+    return new_result_set
+
+
+def select_same_classify_by_the_classifer(std_classify, same_weibo_id_set, weibo_classify_file_path):
+    weibo_classify_dict = dict()
+    with codecs.open(weibo_classify_file_path, 'r', 'utf-8') as classify_file:
+        for data in classify_file:
+            data_list = data.strip('\n').split('\t')
+            weibo_id = data_list[0]
+            weibo_classify = data_list[1]
+            weibo_classify_dict[weibo_id] = weibo_classify
 
     new_result_set = set()
     for weibo_id in same_weibo_id_set:

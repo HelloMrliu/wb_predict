@@ -6,14 +6,16 @@ import os
 from sklearn.cross_validation import train_test_split
 
 
-width_train_data_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'train_data', 'width_train.csv')
+width_train_data_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'train_data', 'train_width.csv')
 
 param = {
-    'max_depth':7,
+    'max_depth':6,
     'eta':0.05,
     'silent':1,
     'objective':'multi:softmax',
     'num_class':6,
+    'alpha':10,
+    'lambda':10,
     'nthread':5
 }
 
@@ -39,10 +41,27 @@ model = xgb.train(param, train_matrix, num_boost_round=1000, evals=watchlist)
 
 result = model.predict(test_matrix)
 
-print list(test_y)
+test_y = list(test_y)
 new_result = list()
 for val in result:
     new_result.append(int(val))
-print new_result
+
+
+length = len(test_y)
+good = 0
+bad = 0
+count = 0
+for index in range(length):
+    error = new_result[index] - int(test_y[index])
+    if error < 0:
+        good += 1
+    elif error > 0:
+        bad += 1
+    else:
+        count += 1
+
+print good
+print bad
+print count
 
 

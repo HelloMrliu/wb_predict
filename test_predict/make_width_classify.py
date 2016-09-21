@@ -28,7 +28,7 @@ def get_classify_dict(data_dict, test_dict, length, low_gap, high_gap, min_gap, 
         #predict_list = predict_data_cal.cal_predict_list(data_dict, same_weibo_id_set)
         predict_list = predict_data_cal.cal_predict_list_by_middle(data_dict, same_weibo_id_set)
 
-        same_weibo_id_set.add(test_weibo_id)
+        #same_weibo_id_set.add(test_weibo_id)
 
         generate_classify.make_classify(test_list, predict_list, same_weibo_id_set, data_dict,
                                         weibo_id_classify, classify_number)
@@ -54,7 +54,7 @@ if __name__ == "__main__":
 
     length = 1500
     low_gap = 0
-    high_gap = 24
+    high_gap = 20000
     min_gap = 3
     min_num = 10
     classify_number = 5

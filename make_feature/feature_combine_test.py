@@ -10,7 +10,10 @@ width_file_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'classify_data',
 depth_file_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'classify_data', 'weibo_depth_classify_data.txt')
 weibo_feature_dir = weibo_train_feature_dir
 
-feature_save_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'train_data', 'train.csv')
+width_test_file_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'badcase_testcase_data', 'weibo_testcase_width.txt')
+depth_test_file_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'badcase_testcase_data', 'weibo_testcase_depth.txt')
+
+feature_save_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'train_data', 'test.csv')
 
 
 file_list = os.listdir(weibo_feature_dir)
@@ -49,25 +52,26 @@ for file_name in file_list:
             null_list = ['0'] * length
             id_feature_dict[weibo_id].extend(null_list)
 
-with codecs.open(width_file_path, 'r', 'utf-8') as width_file:
-        for feature_data in width_file:
-            id_feature = feature_data.strip('\n').split('\t')
-            weibo_id = id_feature[0]
-            label = id_feature[-1]
-            id_feature_dict[weibo_id].append(label)
+weibo_id_set = set()
+
+
+with codecs.open(width_test_file_path, 'r', 'utf-8') as depth_file:
+    for feature_data in depth_file:
+        id_feature = feature_data.strip('\n').split('\t')
+        weibo_id = id_feature[0]
+        weibo_id_set.add(weibo_id)
 
 '''
-with codecs.open(depth_file_path, 'r', 'utf-8') as depth_file:
-        for feature_data in depth_file:
-            id_feature = feature_data.strip('\n').split('\t')
-            weibo_id = id_feature[0]
-            label = id_feature[-1]
-            id_feature_dict[weibo_id].append(label)
+with codecs.open(depth_test_file_path, 'r', 'utf-8') as depth_file:
+    for feature_data in depth_file:
+        id_feature = feature_data.strip('\n').split('\t')
+        weibo_id = id_feature[0]
+        weibo_id_set.add(weibo_id)
 '''
 
 with codecs.open(feature_save_path, 'w', 'utf-8') as save_file:
     for weibo_id in id_feature_dict:
-        if len(id_feature_dict[weibo_id]) == 8:
+        if weibo_id in weibo_id_set:
             save_file.write(str(weibo_id) + ',' + ','.join(id_feature_dict[weibo_id]))
             save_file.write('\n')
         else:

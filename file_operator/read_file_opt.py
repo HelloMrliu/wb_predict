@@ -22,3 +22,14 @@ def read_case_file(data_dir):
             weibo_id = info_list[0]
             case_set.add(weibo_id)
     return case_set
+
+
+def read_classify(data_dir):
+    result_dict = dict()
+    with codecs.open(data_dir, 'r', 'utf-8') as file_data:
+        for data in file_data:
+            info_list = data.strip('\n').split('\t')
+            weibo_id = info_list[0]
+            weibo_classify = info_list[1]
+            result_dict[weibo_id] = weibo_classify
+    return result_dict
