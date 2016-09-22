@@ -51,7 +51,7 @@ val_y = val_data['label']
 if is_width == 0:
     model = RandomForestClassifier(n_estimators=2000, max_depth=None, min_samples_split=2, class_weight=weight_dict).fit(train_x, train_y)
 else:
-    model = RandomForestClassifier(n_estimators=100, max_depth=None, min_samples_split=5, class_weight=weight_dict).fit(train_x, train_y)
+    model = RandomForestClassifier(n_estimators=1000, max_depth=None, min_samples_split=5, class_weight=weight_dict).fit(train_x, train_y)
 
 '''
 test_y = model.predict(test_x)
