@@ -19,7 +19,7 @@ is_width = 1
 
 if is_width == 0:
     data = pd.read_csv(depth_train_data_path)
-    test_data = pd.read_csv(depth_test_data_path)
+    #test_data = pd.read_csv(depth_test_data_path)
     weight_dict = {
         1: 0.5,
         2: 0.35,
@@ -27,7 +27,7 @@ if is_width == 0:
     }
 else:
     data = pd.read_csv(width_train_data_path)
-    test_data = pd.read_csv(width_test_data_path)
+    #test_data = pd.read_csv(width_test_data_path)
     weight_dict = {
         1: 0.4,
         2: 0.3,
@@ -40,18 +40,18 @@ train_data, val_data = train_test_split(data, test_size=0.1)
 
 train_id = train_data['Id']
 val_id = val_data['Id']
-test_id = test_data['Id']
+#test_id = test_data['Id']
 
 train_x = train_data.drop(['Id', 'label'], axis=1)
 train_y = train_data['label']
 val_x = val_data.drop(['Id', 'label'], axis=1)
 val_y = val_data['label']
-test_x = test_data.drop(['Id'], axis=1)
+#test_x = test_data.drop(['Id'], axis=1)
 
 if is_width == 0:
     model = RandomForestClassifier(n_estimators=2000, max_depth=None, min_samples_split=2, class_weight=weight_dict).fit(train_x, train_y)
 else:
-    model = RandomForestClassifier(n_estimators=1000, max_depth=None, min_samples_split=5, class_weight=weight_dict).fit(train_x, train_y)
+    model = RandomForestClassifier(n_estimators=100, max_depth=None, min_samples_split=5, class_weight=weight_dict).fit(train_x, train_y)
 
 '''
 test_y = model.predict(test_x)

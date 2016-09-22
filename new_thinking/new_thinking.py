@@ -16,21 +16,40 @@ feature_dir = os.path.join(os.pardir, os.pardir, 'wb_data', 'train_data', 'train
 weibo_id_classify = dict()
 
 
-def select_same_classify(std_id, same_weibo_id_set):
+def select_same_classify(std_id, std_list, same_weibo_id_set, data_dict):
     id_feature_dict = dict()
     with codecs.open(feature_dir, 'r', 'utf-8') as feature_file:
         for feature in feature_file:
             features = feature.strip('\n').split(',')
-            weibo_id = feature[0]
-            feature_one = int(features[3])
-            feature_two = int(features[4])
+            weibo_id = features[0]
+            feature_one = int(features[1])
+            feature_two = int(features[2])
             id_feature_dict[weibo_id] = (feature_one, feature_two)
+
+    for same_id in same_weibo_id_set:
+        same_list = data_dict[same_id]
+        error = 0
+        for other_id in same_weibo_id_set:
+            other_list = data_dict[other_id]
+            temp_error = error_calculate.error_cal(same_list, other_list)
+            error += temp_error
+        print same_id + ' , ' + str(error)
+
 
     std_feature = id_feature_dict[std_id]
 
+    new_result_set = set()
     for same_id in same_weibo_id_set:
         same_feature = id_feature_dict[same_id]
-        print str(abs(same_feature[0] - std_feature[0])) + ' , ' + str(abs(same_feature[1] - std_feature[1]))
+        same_list = data_dict[same_id]
+        temp_error = error_calculate.error_cal(std_list, same_list)
+        e1 = abs(same_feature[0] - std_feature[0])
+        e2 = abs(same_feature[1] - std_feature[1])
+        if e1 == 0 or e2 == 0:
+            if e1 <= 1 and e2 <= 1:
+                new_result_set.add(same_id)
+        print same_id + ':' + str(abs(same_feature[0] - std_feature[0])) + ' , ' + str(abs(same_feature[1] - std_feature[1])) + ' , ' + str(temp_error)
+
     print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
     return same_weibo_id_set
 
@@ -40,7 +59,6 @@ def get_classify_dict(data_dict, test_dict, length, low_gap, high_gap, min_gap, 
     error = 0
 
     test_dict = select_data.select_testcase_with_con(test_dict, low_gap, high_gap)
-    test_classify_dict = generate_classify.get_classify(predict_classify_file_path)
 
     test_number = len(test_dict)
     print test_number
@@ -51,8 +69,7 @@ def get_classify_dict(data_dict, test_dict, length, low_gap, high_gap, min_gap, 
         same_weibo_id_set = select_data.get_same_set_according_average_val(data_dict, test_list, min_gap, min_num)
         old_same_weibo_id_set = same_weibo_id_set
 
-        same_weibo_id_set = select_same_classify(test_weibo_id, same_weibo_id_set, weibo_classify_file_path)
-        #same_weibo_id_set = generate_classify.select_same_classify(test_weibo_id, same_weibo_id_set, weibo_classify_file_path)
+        same_weibo_id_set = select_same_classify(test_weibo_id, test_list, same_weibo_id_set, data_dict)
 
         if len(same_weibo_id_set) == 0:
             same_weibo_id_set = old_same_weibo_id_set
@@ -68,7 +85,7 @@ def get_classify_dict(data_dict, test_dict, length, low_gap, high_gap, min_gap, 
         else:
             error += temp_error
 
-        #print str(test_weibo_id) + " : " + str(temp_error) + ' len: ' + str(len(same_weibo_id_set)) + ' gap: ' + str(max_gap) + ' divide: ' +  str(max_gap / len(same_weibo_id_set))
+        print str(test_weibo_id) + " : " + str(temp_error) + ' len: ' + str(len(same_weibo_id_set)) + ' gap: ' + str(max_gap) + ' divide: ' +  str(max_gap / len(same_weibo_id_set))
 
         if count > length:
             break
@@ -85,12 +102,12 @@ if __name__ == "__main__":
     width_depth_dict, test_dict = delete_badcase.del_bad_test_case(width_depth_dict, test_case_set)
     width_depth_dict, bad_dict = delete_badcase.del_bad_test_case(width_depth_dict, bad_case_set)
 
-    length = 100
-    low_gap = 0
-    high_gap = 24
+    length = 10
+    low_gap = 25
+    high_gap = 25000
     min_gap = 3
     min_num = 10
     classify_number = 5
-    is_small = 1
+    is_small = 0
 
     get_classify_dict(width_depth_dict, test_dict, length, low_gap, high_gap, min_gap, min_num, classify_number, is_small)

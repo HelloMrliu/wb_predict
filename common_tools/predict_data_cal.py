@@ -50,6 +50,26 @@ def cal_predict_list_by_middle(data_dict, same_weibo_id_set):
     return new_predict_list
 
 
+def cal_predict_list_by_small(data_dict, same_weibo_id_set):
+    predict_list = list()
+    for index in range(288):
+        predict_list.append(list())
+    for weibo_id in same_weibo_id_set:
+        temp_list = data_dict[weibo_id]
+        for index in range(288):
+            predict_list[index].append(int(temp_list[index]))
+
+    for index in range(288):
+        predict_list[index] = sorted(predict_list[index])
+
+    new_predict_list = list()
+    for index in range(288):
+        temp_list = predict_list[index]
+        new_predict_list.append(temp_list[0])
+
+    return new_predict_list
+
+
 def cal_predict_list_by_diff(data_dict, same_weibo_id_set, divide_area_num):
     predict_list = list()
     for index in range(288):

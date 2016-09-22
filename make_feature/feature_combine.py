@@ -10,7 +10,7 @@ width_file_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'classify_data',
 depth_file_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'classify_data', 'weibo_depth_classify_data.txt')
 weibo_feature_dir = weibo_train_feature_dir
 
-feature_save_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'train_data', 'train.csv')
+feature_save_path = os.path.join(os.pardir, os.pardir, 'wb_data', 'train_data', 'train_width.txt')
 
 
 file_list = os.listdir(weibo_feature_dir)
@@ -72,4 +72,5 @@ with codecs.open(feature_save_path, 'w', 'utf-8') as save_file:
             save_file.write('\n')
         else:
             pass
+
 
